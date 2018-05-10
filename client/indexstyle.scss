@@ -1,0 +1,14 @@
+/*!
+ * Copyright (c) SkiScool
+ */
+
+@import 'colors';
+
+h1 {
+  color: $red !important;
+}
+
+$font-size: 40px;
+.example {
+  font-size: $font-size;
+}
