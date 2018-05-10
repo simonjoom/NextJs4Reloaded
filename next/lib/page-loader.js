@@ -95,7 +95,7 @@ export default class PageLoader {
         this.pageRegisterEvents.emit(route, { error })
       }
     }
-
+console.log(module+"++"+ module.hot)
  if (module && module.hot){
       window.storemod[route]=mod;
         register(route, regFn);

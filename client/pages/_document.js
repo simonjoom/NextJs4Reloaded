@@ -10,7 +10,6 @@ export default class MyDocument extends Document {
   render () {
     return <html>
       <Head>
-        <link rel="stylesheet" href="/_next/webpack/style.css" />
           <style>{`body { margin: 0 } /* custom! */`}</style>
             </Head>
       <body className="custom_class" id="trace">

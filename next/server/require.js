@@ -10,6 +10,7 @@ export function pageNotFoundError (page) {
 export function normalizePagePath (page) {
   // If the page is `/` we need to append `/index`, otherwise the returned directory root will be bundles instead of pages
   let pg=page;
+  console.log(pg)
   if (pg === '/') {
     pg = '/index'
   }

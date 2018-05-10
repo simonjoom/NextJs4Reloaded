@@ -206,6 +206,8 @@ export default class HotReloader {
     let webpackDevMiddlewareConfig = {
       publicPath: `/_next/webpack/`,
       noInfo: true,
+                  writeToDisk:true,
+      hot: true,
       quiet: true,
       //clientLogLevel: 'warning',
       watchOptions: { ignored }
@@ -262,6 +264,7 @@ export default class HotReloader {
             for (const c of r.module.chunks) {
               // get the path of the bundle file
               const path = join(compiler.outputPath, c.name)
+
               const errors = this.compilationErrors.get(path) || []
               this.compilationErrors.set(path, errors.concat([err]))
             }
@@ -298,5 +301,5 @@ function diff (a, b) {
 
 function toRoute (file) {
   const f = sep === '\\' ? file.replace(/\\/g, '/') : file
-  return ('/' + f).replace(/(\/index)?\.js$/, '') || '/'
+  return ('/' + f).replace(/(\/index)$/, '') || '/'
 }

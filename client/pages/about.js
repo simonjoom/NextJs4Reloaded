@@ -5,7 +5,6 @@
 import React, { Component } from "react";
 import { hot } from 'react-hot-loader'
 import Head from "next/head";
-import NProgress from "../components/nprogress.jsx";
 import styles from "../indexstyle.scss";
 
 //import styles from "./index.scss";
@@ -36,7 +35,7 @@ class About extends Component {
         </h2>
         <h2>
           <Link route="about">
-            <a>Abouta</a>
+            <a>About</a>
           </Link>
         </h2>
       </div>

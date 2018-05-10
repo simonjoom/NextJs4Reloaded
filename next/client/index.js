@@ -150,7 +150,7 @@ export async function renderError (props) {
 
   // In development we apply sourcemaps to the error
   if (process.env.NODE_ENV !== 'production') {
-    await applySourcemaps(err)
+ //   await applySourcemaps(err)
   }
 
   const str = stripAnsi(`${err.message}\n${err.stack}${err.info ? `\n\n${err.info.componentStack}` : ''}`)
@@ -195,6 +195,7 @@ async function doRender ({ Component, props, hash, err, emitter: emitterProp = e
 
   // In development we render react-hot-loader's wrapper component
   if (HotAppContainer) {
+    console.log("restartrender")
     renderReactElement(<HotAppContainer errorReporter={ErrorDebugComponent} warnings={false}>
       <App {...appProps} />
     </HotAppContainer>, appContainer)

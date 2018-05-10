@@ -23,11 +23,12 @@ async function rewriteTraceLine (trace) {
   if (m == null) {
     return trace
   }
-
-  const filePath = m[1]
+  let filePath = m[1]
   if (filePath.match(/node_modules/)) {
     return trace
   }
+
+ // filePath=filePath.replace(/\/Users\/simon\/mapskiscoolnew\/client\/.next/i,"/_next")
 
   const mapPath = `${filePath}.map`
 
@@ -37,6 +38,7 @@ async function rewriteTraceLine (trace) {
   }
 
   const mapContents = await res.json()
+  console.log(mapContents)
   const {SourceMapConsumer} = require('source-map')
   const map = new SourceMapConsumer(mapContents)
   const originalPosition = map.originalPositionFor({
@@ -44,9 +46,12 @@ async function rewriteTraceLine (trace) {
     column: Number(m[3])
   })
 
+console.log(originalPosition);
   if (originalPosition.source != null) {
+
+
     const { source, line, column } = originalPosition
-    const mappedPosition = `(${source.replace(/^webpack:\/\/\//, '')}:${String(line)}:${String(column)})`
+    const mappedPosition = `(${source.replace(/^webpack:\/\/\//, '').replace(/\/Users\/simon\/mapskiscoolnew\/client\/.next/i,"/_next")}:${String(line)}:${String(column)})`
     return trace.replace(filenameRE, mappedPosition)
   }
 

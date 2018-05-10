@@ -1,6 +1,7 @@
 import React from 'react'
 import App, { Container } from 'next/app'
 import { hot } from 'react-hot-loader'
+import NProgress from "../components/nprogress";
 
 class Layout extends React.Component {
   render() {
@@ -18,6 +19,7 @@ class Myapp extends App {
     //const {children} = this.props;
     const {Component, appProps} = this.props;
     return (<Container>
+      <NProgress/>
       <Layout>
         <Component {...appProps}/>
       </Layout>
@@ -25,4 +27,5 @@ class Myapp extends App {
   }
 }
 
+export const styleGlobal = require("../static/css/nprogress.css");
 export default hot(module)(Myapp);

@@ -4,9 +4,11 @@ import asset from 'next/asset';
 import NProgress from "nprogress";
 import { Router } from "../../tools/routes";
 
+
 NProgress.configure({showSpinner: true});
 
 Router.onRouteChangeStart = url => {
+  console.log("routechange",url)
   NProgress.start();
 };
 Router.onRouteChangeComplete = () => NProgress.done();

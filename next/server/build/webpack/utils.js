@@ -35,12 +35,12 @@ export function createEntry (filePath, {isServer = false, dev=false, name, pageE
   // This makes sure we compile `pages/blog/index.js` to `pages/blog.js`.
   // Excludes `pages/index.js` from this rule since we do want `/` to route to `pages/index.js`
   if (parsedPath.dir !== 'pages' && parsedPath.name === 'index') {
-    entryName = `${parsedPath.dir}.js`
+    entryName = `${parsedPath.dir}`
   }
 
   // Makes sure supported extensions are stripped off. The outputted file should always be `.js`
   if (pageExtensions) {
-    entryName = entryName.replace(new RegExp(`\\.+(${pageExtensions})$`), '.js')
+    entryName = entryName.replace(new RegExp(`\\.+(${pageExtensions})$`), '')
   }
   let addfile=[parsedPath.root ? filePath : `./${filePath}`];
   if(dev && !isServer)
@@ -62,20 +62,20 @@ export function getPageEntries (pagePaths, {isServer = false, dev=false, pageExt
   }
 
   const appPagePath = path.join(nextPagesDir, '_app.js')
-  const appPageEntry = createEntry(appPagePath, {isServer, dev,name: 'pages/_app.js'}) // default app.js
+  const appPageEntry = createEntry(appPagePath, {isServer, dev,name: 'pages/_app'}) // default app.js
   if (!entries[appPageEntry.name]) {
     entries[appPageEntry.name] = appPageEntry.files
   }
 
   const errorPagePath = path.join(nextPagesDir, '_error.js')
-  const errorPageEntry = createEntry(errorPagePath, {isServer, dev,name: 'pages/_error.js'}) // default error.js
+  const errorPageEntry = createEntry(errorPagePath, {isServer, dev,name: 'pages/_error'}) // default error.js
   if (!entries[errorPageEntry.name]) {
     entries[errorPageEntry.name] = errorPageEntry.files
   }
 
   if (isServer) {
     const documentPagePath = path.join(nextPagesDir, '_document.js')
-    const documentPageEntry = createEntry(documentPagePath, {isServer, dev, name: 'pages/_document.js'}) // default _document.js
+    const documentPageEntry = createEntry(documentPagePath, {isServer, dev, name: 'pages/_document'}) // default _document.js
     if (!entries[documentPageEntry.name]) {
       entries[documentPageEntry.name] = documentPageEntry.files
     }

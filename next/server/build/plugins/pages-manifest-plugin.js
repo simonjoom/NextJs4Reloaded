@@ -8,7 +8,7 @@ import {PAGES_MANIFEST} from '../../../lib/constants'
 // It's also used by next export to provide defaultPathMap
 export default class PagesManifestPlugin {
   apply (compiler) {
-    compiler.plugin('emit', (compilation, callback) => {
+    compiler.hooks.emit.tapAsync("PagesManifestPlugin",(compilation, callback) => {
       const {entries} = compilation
       const pages = {}
 

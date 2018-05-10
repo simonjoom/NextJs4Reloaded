@@ -42,7 +42,6 @@ export default class Server {
     this.dist = this.nextConfig.distDir
 
     this.hotReloader = dev ? this.getHotReloader(this.dir, { quiet, config: this.nextConfig }) : null
-
     // Only serverRuntimeConfig needs the default
     // publicRuntimeConfig gets it's default in client/index.js
     const {serverRuntimeConfig = {}, publicRuntimeConfig, assetPrefix, generateEtags} = this.nextConfig
@@ -167,6 +166,9 @@ export default class Server {
         const p = join(this.dir, this.dist, 'chunks', params.id)
         await this.serveStatic(req, res, p)
       },*/
+      '/_next/webpack/webpack-hmr': async (req, res, params) => {
+
+      },
       '/_next/webpack/:path*': async (req, res, params) => {
         const p = join(this.dir, this.dist, ...(params.path || []))
         await this.serveStatic(req, res, p)
@@ -346,8 +348,8 @@ export default class Server {
         res.statusCode = 404
         return this.renderErrorToHTML(null, req, res, pathname, query)
       } else {
-        const {applySourcemaps} = require('./lib/source-map-support')
-        await applySourcemaps(err)
+       // const {applySourcemaps} = require('./lib/source-map-support')
+       // await applySourcemaps(err)
         if (!this.quiet) console.error(err)
         res.statusCode = 500
         return this.renderErrorToHTML(err, req, res, pathname, query)

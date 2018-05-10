@@ -50,14 +50,14 @@ async function doRender (req, res, pathname, query, {
 } = {}) {
   page = page || pathname
 
-//?  await applySourcemaps(err)
+ await applySourcemaps(err)
 
  //TODO.? if (hotReloader) { // In dev mode we use on demand entries to compile the page before rendering
   //  await ensurePage(page, { dir, hotReloader })
 //  }
 
-  const documentPath = join(dir, dist, 'dist', 'bundles', 'pages', '_document')
-  const appPath = join(dir, dist, 'dist', 'bundles', 'pages', '_app')
+  const documentPath = join(dir, dist, 'dist', 'bundles', 'pages', '_document.js')
+  const appPath = join(dir, dist, 'dist', 'bundles', 'pages', '_app.js')
   const buildManifest = require(join(dir, dist, BUILD_MANIFEST))
   let [Component, Document, App] = await Promise.all([
     requirePage(page, {dir, dist}),
