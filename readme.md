@@ -10,8 +10,6 @@ Next.js is a minimalistic framework for server-rendered React applications.
 
 **Visit [nextjs.org/learn](https://nextjs.org/learn) to get started with Next.js.**
 
-
-
 ---
 
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -29,6 +27,14 @@ Next.js is a minimalistic framework for server-rendered React applications.
     "webpack": "4.8.1",
     "webpack-dev-middleware": "3.1.3",
     "webpack-hot-middleware": "2.22.1"
+
+I started this work because i like to start working with a good hot-loader and to allow me to understand the core of next.js
+
+I used the last code of Next.js from Canary in the repo using notably Layout support
+
+[Expose app.js](https://github.com/zeit/next.js/commit/eca8e8f64bc746debe270a8e5969ec16735518c0)(next.js/commit#4129)
+
+And i mixed with the no-supporting branch webpack4 from next.js
 
 
 > Next.js only supports [React 16](https://reactjs.org/blog/2017/09/26/react-v16.0.html).
@@ -125,7 +131,7 @@ To trick HMR with nextjs bundle i should to pass the module of the current chunk
     ./next/client/webpack-hot-middleware-client.js
     ./next/server/hot-reloader.js
     ./next/lib/page-loader.js
-
+    ./next/server/build/loaders/hot-self-accept-loader.js
     And finally the 
         ./next/server/build/webpack.js 
     where almost all things are from
