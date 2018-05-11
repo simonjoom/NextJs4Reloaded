@@ -73,7 +73,8 @@ npm run dev
           
           It's a boilerplate not for framework style.. so just for some people want to dig more in nextjs code and who want to avoid black-out.
           
-          I taked off the feature build ondemand... just because it's complicate and i guess source of bug in hard developpement of nextjs
+          I taked off the feature build ondemand...
+          Because it's complicate and i guess source of bug in hard developpement of nextjs
           This boilerplate plug nextjs directly in his code, just to make more fun to developp nextjs and try to debug it.
           (there is no version 'dist babelified' all is babelified on run time so the build is bit much smaller
           
@@ -95,11 +96,13 @@ When i tried to use mini-css-extract-plugin i've got some file with ended .js.cs
 
 So for now we have got:  (no js extension)
 
-
+```
 export const IS_BUNDLED_PAGE = /^bundles[/\\]pages.*$/
+```
 
+```
 export const MATCH_ROUTE_NAME = /^bundles[/\\]pages[/\\](.*)$/
-
+```
 
 About __webpack_public_path__ i created a new file to avoid some error with Hotmodulereplacement, 
 
@@ -107,34 +110,37 @@ fixwebpackpath is added at start of each entry name to inform every chunk to use
 
 
 
-I put webpack_public_path as /_next/webpack/ for developpement even HMR use /_next/webpack/webpack-hmr 
+I put __webpack_public_path as /_next/webpack/ for developpement even HMR use /_next/webpack/webpack-hmr 
 
 sourcemapsupport is not working with webpack4 so i just delete it
 
 
 To trick HMR with nextjs bundle i should to pass the module of the current chunk to a global and then pass to a new HMR2 code using it in parameter
 
- else HMR cannot see change only on the module of the main entry point
+ else HMR cannot see ***change only on the module of the main entry point***
  
  
-Please here the file to see major change:
-./next/client/fixwebpackpath.js
-./next/client/webpack-hot-middleware-client.js
-./next/server/hot-reloader.js
-./next/lib/page-loader.js
+    Please here the file to see major change:
+    ./next/client/fixwebpackpath.js
+    ./next/client/webpack-hot-middleware-client.js
+    ./next/server/hot-reloader.js
+    ./next/lib/page-loader.js
 
-And finally the 
-./next/server/build/webpack.js 
-where almost all things are from
+    And finally the 
+        ./next/server/build/webpack.js 
+    where almost all things are from
 
-.. so now it's working well even for css extracted with the help of css-hot-loader
+
+For now it's working well even for css extracted with the help of css-hot-loader
 
 
 next-routes work in box with webpack4
-I created a function getSingleton to store in global the singleton 
-This avoided the first bug i saw of routing with webpack 4 
-here:
-./next/lib/router/index.js
+I created a function ***getSingleton*** to store in global the singleton 
+
+
+    This avoided the first bug i saw of routing with webpack 4 
+    here:
+    ./next/lib/router/index.js
 
 
 i finally changed codes with the new hook support
