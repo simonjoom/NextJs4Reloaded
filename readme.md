@@ -10,130 +10,139 @@ Next.js is a minimalistic framework for server-rendered React applications.
 
 **Visit [nextjs.org/learn](https://nextjs.org/learn) to get started with Next.js.**
 
+
+
 ---
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- https://github.com/thlorenz/doctoc -->
 
-- [How to use](#how-to-use)
-  - [Setup](#setup)
-  - [Automatic code splitting](#automatic-code-splitting)
-  - [CSS](#css)
-    - [Built-in CSS support](#built-in-css-support)
-    - [CSS-in-JS](#css-in-js)
-    - [Importing CSS / Sass / Less / Stylus files](#importing-css--sass--less--stylus-files)
-  - [Static file serving (e.g.: images)](#static-file-serving-eg-images)
-  - [Populating `<head>`](#populating-head)
-  - [Fetching data and component lifecycle](#fetching-data-and-component-lifecycle)
-  - [Routing](#routing)
-    - [With `<Link>`](#with-link)
-      - [With URL object](#with-url-object)
-      - [Replace instead of push url](#replace-instead-of-push-url)
-      - [Using a component that supports `onClick`](#using-a-component-that-supports-onclick)
-      - [Forcing the Link to expose `href` to its child](#forcing-the-link-to-expose-href-to-its-child)
-      - [Disabling the scroll changes to top on page](#disabling-the-scroll-changes-to-top-on-page)
-    - [Imperatively](#imperatively)
-    - [Intercepting `popstate`](#intercepting-popstate)
-      - [With URL object](#with-url-object-1)
-      - [Router Events](#router-events)
-      - [Shallow Routing](#shallow-routing)
-    - [Using a Higher Order Component](#using-a-higher-order-component)
-  - [Prefetching Pages](#prefetching-pages)
-    - [With `<Link>`](#with-link-1)
-    - [Imperatively](#imperatively-1)
-  - [Custom server and routing](#custom-server-and-routing)
-    - [Disabling file-system routing](#disabling-file-system-routing)
-    - [Dynamic assetPrefix](#dynamic-assetprefix)
-  - [Dynamic Import](#dynamic-import)
-    - [1. Basic Usage (Also does SSR)](#1-basic-usage-also-does-ssr)
-    - [2. With Custom Loading Component](#2-with-custom-loading-component)
-    - [3. With No SSR](#3-with-no-ssr)
-    - [4. With Multiple Modules At Once](#4-with-multiple-modules-at-once)
-  - [Custom `<App>`](#custom-app)
-  - [Custom `<Document>`](#custom-document)
-  - [Custom error handling](#custom-error-handling)
-  - [Reusing the built-in error page](#reusing-the-built-in-error-page)
-  - [Custom configuration](#custom-configuration)
-    - [Setting a custom build directory](#setting-a-custom-build-directory)
-    - [Disabling etag generation](#disabling-etag-generation)
-    - [Configuring the onDemandEntries](#configuring-the-ondemandentries)
-    - [Configuring extensions looked for when resolving pages in `pages`](#configuring-extensions-looked-for-when-resolving-pages-in-pages)
-    - [Configuring the build ID](#configuring-the-build-id)
-  - [Customizing webpack config](#customizing-webpack-config)
-  - [Customizing babel config](#customizing-babel-config)
-    - [Exposing configuration to the server / client side](#exposing-configuration-to-the-server--client-side)
-  - [CDN support with Asset Prefix](#cdn-support-with-asset-prefix)
-- [Production deployment](#production-deployment)
-- [Static HTML export](#static-html-export)
-  - [Usage](#usage)
-  - [Limitation](#limitation)
-- [Multi Zones](#multi-zones)
-  - [How to define a zone](#how-to-define-a-zone)
-  - [How to merge them](#how-to-merge-them)
-- [Recipes](#recipes)
-- [FAQ](#faq)
-- [Contributing](#contributing)
-- [Authors](#authors)
-
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## How to use
+## Inside the Box:
+    "@babel/...": "7.0.0-beta.46",
+    "react-hot-loader": "4.1.3",
+    "mini-css-extract-plugin":"latest",
+    "css-hot-loader":"latest",
+    "css-loader":"latest",
+    "style-loader":"latest",
+    "webpack": "4.8.1",
+    "webpack-dev-middleware": "3.1.3",
+    "webpack-hot-middleware": "2.22.1"
 
+
+> Next.js only supports [React 16](https://reactjs.org/blog/2017/09/26/react-v16.0.html).
+> We had to drop React 15 support due to the way React 16 works and how we use it.
+
+
+## How to use
 ### Setup
 
 Install it:
 
+go in folder next and install dependencies (hope i didn't forget anyone because i test only on a clone of this one)
+
+on Folder next:
 ```bash
-npm install --save next react react-dom
+npm install
 ```
 
-> Next.js only supports [React 16](https://reactjs.org/blog/2017/09/26/react-v16.0.html).<br/>
-> We had to drop React 15 support due to the way React 16 works and how we use it.
-
-and add a script to your package.json like this:
-
-```json
-{
-  "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start"
-  }
-}
+on Folder root:
+```bash
+npm install
 ```
 
-After that, the file-system is the main API. Every `.js` file becomes a route that gets automatically processed and rendered.
+Run it:
+This is to be runned with "npm run dev" only 
+(i didn't work and test still for production for the moment)
 
-Populate `./pages/index.js` inside your project:
 
-```jsx
-export default () => <div>Welcome to next.js!</div>
+```bash
+npm run dev
 ```
 
-and then just run `npm run dev` and go to `http://localhost:3000`. To use another port, you can run `npm run dev -- -p <your port here>`.
 
-So far, we get:
+### FEATURE TESTED:
+- you can change something in pages/_app.js or pages/index.js to see the hot-reload in action
+- you can change something in static/css/nprogress.css to see the hot-reload in action on the static css
+- you can change something in indexstyle.scss to see the hot-reload in action on dynamic style in component
 
-- Automatic transpilation and bundling (with webpack and babel)
-- Hot code reloading
-- Server rendering and indexing of `./pages`
-- Static file serving. `./static/` is mapped to `/static/`
+   Watch the console to see HMR2 hacked for webpack4 and nextjs
 
-To see how simple this is, check out the [sample app - nextgram](https://github.com/zeit/nextgram)
+          This boilerplate use nextjs versius developpement mode, with babel and their sourcemaps,.
+          
+          It's a boilerplate not for framework style.. so just for some people want to dig more in nextjs code and who want to avoid black-out.
+          
+          I taked off the feature build ondemand... just because it's complicate and i guess source of bug in hard developpement of nextjs
+          This boilerplate plug nextjs directly in his code, just to make more fun to developp nextjs and try to debug it.
+          (there is no version 'dist babelified' all is babelified on run time so the build is bit much smaller
+          
+          
+          This boilerplate use next-routes. The route are stored in /tools/routes
+          Inside _app layout i added the very useful nprogress, he is working for all pages routes.
 
-### Automatic code splitting
 
-Every `import` you declare gets bundled and served with each page. That means pages never load unnecessary code!
+### TO READ FOR DEVELOPER
 
-```jsx
-import cowsay from 'cowsay-browser'
+    I removed completly the on-demand feature in my taste to complex (and anyway now we have got fast computer and a fast webpack4), maybe when it's stable we can get it back.
 
-export default () =>
-  <pre>
-    {cowsay.say({ text: 'hi there!' })}
-  </pre>
-```
+
+I changed the way that nextjs get chunk files:
+
+In my taste was not fine that a chunk name was finished with the extension '.js' 
+
+When i tried to use mini-css-extract-plugin i've got some file with ended .js.css without an other way with webpack to change it.
+
+So for now we have got:  (no js extension)
+
+
+export const IS_BUNDLED_PAGE = /^bundles[/\\]pages.*$/
+
+export const MATCH_ROUTE_NAME = /^bundles[/\\]pages[/\\](.*)$/
+
+
+About __webpack_public_path__ i created a new file to avoid some error with Hotmodulereplacement, 
+
+fixwebpackpath is added at start of each entry name to inform every chunk to use the new public path
+
+
+
+I put webpack_public_path as /_next/webpack/ for developpement even HMR use /_next/webpack/webpack-hmr 
+
+sourcemapsupport is not working with webpack4 so i just delete it
+
+
+To trick HMR with nextjs bundle i should to pass the module of the current chunk to a global and then pass to a new HMR2 code using it in parameter
+
+ else HMR cannot see change only on the module of the main entry point
+ 
+ 
+Please here the file to see major change:
+./next/client/fixwebpackpath.js
+./next/client/webpack-hot-middleware-client.js
+./next/server/hot-reloader.js
+./next/lib/page-loader.js
+
+And finally the 
+./next/server/build/webpack.js 
+where almost all things are from
+
+.. so now it's working well even for css extracted with the help of css-hot-loader
+
+
+next-routes work in box with webpack4
+I created a function getSingleton to store in global the singleton 
+This avoided the first bug i saw of routing with webpack 4 
+here:
+./next/lib/router/index.js
+
+
+i finally changed codes with the new hook support
+compiler.hooks.compilation.tap("DynamicChunksPlugin", (compilation) => {...})
+
+
+
+
 
 ### CSS
 
@@ -141,36 +150,10 @@ export default () =>
 
 <p><details>
   <summary><b>Examples</b></summary>
-  <ul><li><a href="./examples/basic-css">Basic css</a></li></ul>
+  <ul><li><a href="./examples/basic-css">Basic css</a></ul>
 </details></p>
 
 We bundle [styled-jsx](https://github.com/zeit/styled-jsx) to provide support for isolated scoped CSS. The aim is to support "shadow CSS" similar to Web Components, which unfortunately [do not support server-rendering and are JS-only](https://github.com/w3c/webcomponents/issues/71).
-
-```jsx
-export default () =>
-  <div>
-    Hello world
-    <p>scoped!</p>
-    <style jsx>{`
-      p {
-        color: blue;
-      }
-      div {
-        background: red;
-      }
-      @media (max-width: 600px) {
-        div {
-          background: blue;
-        }
-      }
-    `}</style>
-    <style global jsx>{`
-      body {
-        background: black;
-      }
-    `}</style>
-  </div>
-```
 
 Please see the [styled-jsx documentation](https://www.npmjs.com/package/styled-jsx) for more examples.
 
@@ -180,7 +163,7 @@ Please see the [styled-jsx documentation](https://www.npmjs.com/package/styled-j
   <summary>
     <b>Examples</b>
     </summary>
-  <ul><li><a href="./examples/with-styled-components">Styled components</a></li><li><a href="./examples/with-styletron">Styletron</a></li><li><a href="./examples/with-glamor">Glamor</a></li><li><a href="./examples/with-glamorous">Glamorous</a></li><li><a href="./examples/with-cxs">Cxs</a></li><li><a href="./examples/with-aphrodite">Aphrodite</a></li><li><a href="./examples/with-fela">Fela</a></li></ul>
+  <ul><li><a href="./examples/with-styled-components">Styled components</a><li><a href="./examples/with-styletron">Styletron</a><li><a href="./examples/with-glamor">Glamor</a><li><a href="./examples/with-glamorous">Glamorous</a><li><a href="./examples/with-cxs">Cxs</a><li><a href="./examples/with-aphrodite">Aphrodite</a><li><a href="./examples/with-fela">Fela</a></ul>
 </details></p>
 
 It's possible to use any existing CSS-in-JS solution. The simplest one is inline styles:
@@ -213,8 +196,8 @@ export default () => <img src="/static/my-image.png" alt="my image" />
 <p><details>
   <summary><b>Examples</b></summary>
   <ul>
-    <li><a href="./examples/head-elements">Head elements</a></li>
-    <li><a href="./examples/layout-component">Layout component</a></li>
+    <li><a href="./examples/head-elements">Head elements</a>
+    <li><a href="./examples/layout-component">Layout component</a>
   </ul>
 </details></p>
 
@@ -259,7 +242,7 @@ _Note: The contents of `<head>` get cleared upon unmounting the component, so ma
 
 <p><details>
   <summary><b>Examples</b></summary>
-  <ul><li><a href="./examples/data-fetch">Data fetch</a></li></ul>
+  <ul><li><a href="./examples/data-fetch">Data fetch</a></ul>
 </details></p>
 
 When you need state, lifecycle hooks or **initial data population** you can export a `React.Component` (instead of a stateless function, like shown above):
@@ -291,12 +274,12 @@ For the initial page load, `getInitialProps` will execute on the server only. `g
 
 _Note: `getInitialProps` can **not** be used in children components. Only in `pages`._
 
-<br/>
+
 
 > If you are using some server only modules inside `getInitialProps`, make sure to [import them properly](https://arunoda.me/blog/ssr-and-server-only-modules).
 > Otherwise, it'll slow down your app.
 
-<br/>
+
 
 You can also define the `getInitialProps` lifecycle method for stateless components:
 
@@ -332,7 +315,7 @@ export default Page
 <p><details>
   <summary><b>Examples</b></summary>
   <ul>
-    <li><a href="./examples/hello-world">Hello World</a></li>
+    <li><a href="./examples/hello-world">Hello World</a>
   </ul>
 </details></p>
 
@@ -380,7 +363,7 @@ The second `as` parameter for `push` and `replace` is an optional _decoration_ o
 <p><details>
   <summary><b>Examples</b></summary>
   <ul>
-    <li><a href="./examples/with-url-object-routing">With URL Object Routing</a></li>
+    <li><a href="./examples/with-url-object-routing">With URL Object Routing</a>
   </ul>
 </details></p>
 
@@ -469,8 +452,8 @@ The default behaviour of `<Link>` is to scroll to the top of the page. When ther
 <p><details>
   <summary><b>Examples</b></summary>
   <ul>
-    <li><a href="./examples/using-router">Basic routing</a></li>
-    <li><a href="./examples/with-loading">With a page loading indicator</a></li>
+    <li><a href="./examples/using-router">Basic routing</a>
+    <li><a href="./examples/with-loading">With a page loading indicator</a>
   </ul>
 </details></p>
 
@@ -585,7 +568,7 @@ Router.onRouteChangeError = (err, url) => {
 <p><details>
   <summary><b>Examples</b></summary>
   <ul>
-    <li><a href="./examples/with-shallow-routing">Shallow Routing</a></li>
+    <li><a href="./examples/with-shallow-routing">Shallow Routing</a>
   </ul>
 </details></p>
 
@@ -624,7 +607,7 @@ componentWillReceiveProps(nextProps) {
 <p><details>
   <summary><b>Examples</b></summary>
   <ul>
-    <li><a href="./examples/using-with-router">Using the `withRouter` utility</a></li>
+    <li><a href="./examples/using-with-router">Using the `withRouter` utility</a>
   </ul>
 </details></p>
 
@@ -662,7 +645,7 @@ The above `router` object comes with an API similar to [`next/router`](#imperati
 
 <p><details>
   <summary><b>Examples</b></summary>
-  <ul><li><a href="./examples/with-prefetching">Prefetching</a></li></ul>
+  <ul><li><a href="./examples/with-prefetching">Prefetching</a></ul>
 </details></p>
 
 Next.js has an API which allows you to prefetch pages.
@@ -686,17 +669,17 @@ export default () =>
         <Link prefetch href="/">
           <a>Home</a>
         </Link>
-      </li>
+      
       <li>
         <Link prefetch href="/about">
           <a>About</a>
         </Link>
-      </li>
+      
       <li>
         <Link prefetch href="/contact">
           <a>Contact</a>
         </Link>
-      </li>
+      
     </ul>
   </nav>
 ```
@@ -723,12 +706,12 @@ export default ({ url }) =>
 <p><details>
   <summary><b>Examples</b></summary>
   <ul>
-    <li><a href="./examples/custom-server">Basic custom server</a></li>
-    <li><a href="./examples/custom-server-express">Express integration</a></li>
-    <li><a href="./examples/custom-server-hapi">Hapi integration</a></li>
-    <li><a href="./examples/custom-server-koa">Koa integration</a></li>
-    <li><a href="./examples/parameterized-routing">Parameterized routing</a></li>
-    <li><a href="./examples/ssr-caching">SSR caching</a></li>
+    <li><a href="./examples/custom-server">Basic custom server</a>
+    <li><a href="./examples/custom-server-express">Express integration</a>
+    <li><a href="./examples/custom-server-hapi">Hapi integration</a>
+    <li><a href="./examples/custom-server-koa">Koa integration</a>
+    <li><a href="./examples/parameterized-routing">Parameterized routing</a>
+    <li><a href="./examples/ssr-caching">SSR caching</a>
   </ul>
 </details></p>
 
@@ -856,7 +839,7 @@ app.prepare().then(() => {
 <p><details>
   <summary><b>Examples</b></summary>
   <ul>
-    <li><a href="./examples/with-dynamic-import">With Dynamic Import</a></li>
+    <li><a href="./examples/with-dynamic-import">With Dynamic Import</a>
   </ul>
 </details></p>
 
@@ -953,8 +936,8 @@ export default () => <HelloBundle title="Dynamic Bundle" />
 
 <p><details>
   <summary><b>Examples</b></summary>
-  <ul><li><a href="./examples/with-app-layout">Using `_app.js` for layout</a></li></ul>
-  <ul><li><a href="./examples/with-componentdidcatch">Using `_app.js` to override `componentDidCatch`</a></li></ul>
+  <ul><li><a href="./examples/with-app-layout">Using `_app.js` for layout</a></ul>
+  <ul><li><a href="./examples/with-componentdidcatch">Using `_app.js` to override `componentDidCatch`</a></ul>
 </details></p>
 
 Next.js uses the `App` component to initialize pages. You can override it and control the page initialization. Which allows you to do amazing things like:
@@ -994,8 +977,8 @@ export default class MyApp extends App {
 
 <p><details>
   <summary><b>Examples</b></summary>
-  <ul><li><a href="./examples/with-styled-components">Styled components custom document</a></li></ul>
-  <ul><li><a href="./examples/with-amp">Google AMP</a></li></ul>
+  <ul><li><a href="./examples/with-styled-components">Styled components custom document</a></ul>
+  <ul><li><a href="./examples/with-amp">Google AMP</a></ul>
 </details></p>
 
 - Is rendered on the server side
@@ -1209,7 +1192,7 @@ module.exports = {
 
 <p><details>
   <summary><b>Examples</b></summary>
-  <ul><li><a href="./examples/with-webpack-bundle-analyzer">Custom webpack bundle analyzer</a></li></ul>
+  <ul><li><a href="./examples/with-webpack-bundle-analyzer">Custom webpack bundle analyzer</a></ul>
 </details></p>
 
 In order to extend our usage of `webpack`, you can define a function that extends its config via `next.config.js`.
@@ -1264,7 +1247,7 @@ module.exports = withTypescript(withSass({
 
 <p><details>
   <summary><b>Examples</b></summary>
-  <ul><li><a href="./examples/with-custom-babel-config">Custom babel configuration</a></li></ul>
+  <ul><li><a href="./examples/with-custom-babel-config">Custom babel configuration</a></ul>
 </details></p>
 
 In order to extend our usage of `babel`, you can simply define a `.babelrc` file at the root of your app. This file is optional.
@@ -1363,7 +1346,7 @@ Note: we recommend putting `.next`, or your [custom dist folder](https://github.
 
 <p><details>
   <summary><b>Examples</b></summary>
-  <ul><li><a href="./examples/with-static-export">Static export</a></li></ul>
+  <ul><li><a href="./examples/with-static-export">Static export</a></ul>
 </details></p>
 
 This is a way to run your Next.js app as a standalone static app without any Node.js server. The export app supports almost every feature of Next.js including dynamic urls, prefetching, preloading and dynamic imports.
@@ -1439,7 +1422,7 @@ So, you could only use `pathname`, `query` and `asPath` fields of the `context` 
 
 <p><details>
   <summary><b>Examples</b></summary>
-  <ul><li><a href="./examples/with-zones">With Zones</a></li></ul>
+  <ul><li><a href="./examples/with-zones">With Zones</a></ul>
 </details></p>
 
 A zone is a single deployment of a Next.js app. Just like that, you can have multiple zones. Then you can merge them as a single app.

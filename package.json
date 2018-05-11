@@ -1,9 +1,9 @@
 {
 
-  "name": "next-wepack4",
+  "name": "Next-webpack4",
   "version": "1",
-  "description": "Minimalistic framework for server-rendered React applications",
-  "license": "MIT",  
+  "description": "Server-rendered React applications",
+  "license": "MIT",
   "main": "index.js",
   "keywords": [
     "feathers"
@@ -35,7 +35,7 @@
     "next": "./babelnext.js"
   },
   "scripts": {
-  
+
   },
   "standard": {
     "parser": "babel-eslint",
@@ -49,9 +49,6 @@
     "bin/*": "standard"
   },
   "dependencies": {
-    "do-nothing-loader": "latest",
-    "style-loader": "latest",
-    "css-loader": "0.28.9",
     "next-routes": "1.3.0",
     "@babel/core": "7.0.0-beta.46",
     "@babel/preset-flow": "7.0.0-beta.46",
@@ -65,6 +62,7 @@
     "@babel/generator": "7.0.0-beta.46",
     "@babel/preset-env": "7.0.0-beta.46",
     "@babel/preset-react": "7.0.0-beta.46",
+    "@babel/preset-flow": "7.0.0-beta.46",
     "@babel/template": "7.0.0-beta.46",
     "ansi-html": "0.0.7",
     "babel-loader": "8.0.0-beta.2",
@@ -77,7 +75,6 @@
     "event-source-polyfill": "0.0.12",
     "find-up": "2.1.0",
     "fresh": "0.5.2",
-    "friendly-errors-webpack-plugin": "1.6.1",
     "glob": "7.1.2",
     "hoist-non-react-statics": "2.5.0",
     "htmlescape": "1.1.1",
@@ -93,19 +90,15 @@
     "path-to-regexp": "2.1.0",
     "prop-types": "15.6.0",
     "prop-types-exact": "1.1.1",
-    "react-hot-loader": "4.1.3",
     "recursive-copy": "2.0.6",
     "resolve": "1.5.0",
     "send": "0.16.1",
     "strip-ansi": "3.0.1",
-    "styled-jsx": "2.2.6",
     "touch": "3.1.0",
     "unfetch": "3.0.0",
-    "update-check": "1.4.0",
     "url": "0.11.0",
     "uuid": "3.1.0",
     "walk": "2.3.9",
-    "styled-jsx": "latest",
     "postcss-import": "11.1.0",
     "postcss-scss": "1.0.4",
     "postcss-preset-env": "3.2.2"
