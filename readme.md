@@ -17,7 +17,31 @@ Next.js is a minimalistic framework for server-rendered React applications.
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Inside the Box:
+# UPDATE
+
+OK if you re here and you re looking for a nice boilerplate start solution with webpack 4 SSR and using Apollo in the core:
+
+
+I recommand now to start here:
+[Apollo-RFX-PRISMA-ssr-boilerplate](https://github.com/simonjoom/Apollo-RFX-PRISMA-ssr-boilerplate)
+
+Because this repo is outdated, nestjs is not really well for webpack4,
+I think lot of his feature are outdated feature so in my opinion better to start with something nice like 
+[react-universal-component](https://github.com/faceyspacey/react-universal-component)
+
+(i use it in Apollo-RFX-PRISMA-ssr-boilerplate) to use the last webpack feature as dynamic import.
+
+## We hire!! :
+The boilerplate is nice and working;
+
+I'm looking for skilled Apollo-graphql developpers to work with Apollo-RFX-PRISMA-ssr-boilerplate API
+
+
+
+## FOR NEXTJS: 
+
+
+Inside the Box:
     "@babel/...": "7.0.0-beta.46",
     "react-hot-loader": "4.1.3",
     "mini-css-extract-plugin":"latest",
